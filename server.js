@@ -1,15 +1,19 @@
 const express = require('express');
 const mongoose = require('mongoose');
-require('dotenv').config();
+const dotenv = require('dotenv');
+const cors = require('cors');
 
+dotenv.config();
 const app = express();
+
+app.use(cors());
 app.use(express.json());
-app.use(require('cors')());
 
-// Health check
-app.get('/health', (req, res) => res.json({ ok: true }));
+// Routes
+app.use('/api/auth', require('./routes/auth'));
 
-// Connect to MongoDB
+app.get('/health', (_, res) => res.json({ ok: true }));
+
 mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.error(err));
