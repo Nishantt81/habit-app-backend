@@ -11,6 +11,7 @@ app.use(express.json());
 
 // Routes
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/v1/habits', require('./routes/habit'));
 
 app.get('/health', (_, res) => res.json({ ok: true }));
 
